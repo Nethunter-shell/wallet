@@ -1,0 +1,122 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #06010f;
+    color: white;
+}
+
+.header{
+    display: flex;
+    align-items: right;
+    justify-content: flex-end;
+    padding: 1rem 7%;
+    left: 0;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+}
+.nav a{
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    padding: .5rem 1.6rem;
+    color: #9f8eb9;
+    align-items: right;
+    margin-top: 2rem;
+}
+
+.main{
+    display: flex;
+    margin-bottom: 5rem;
+}
+.main .content{
+    flex: 1 1 20rem;
+    padding-left: 5rem;
+}
+.main .content span{
+    color: rgb(255, 255, 255);
+    font-size: 5rem;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.main .content .sp2{
+    color: rgb(255, 255, 255);
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.main .content p{
+    color: #837697;
+    font-size: 1.2rem;
+    padding: .5rem 0;
+    line-height: 1.5;
+    font-family: sans-serif;
+    font-weight: 500;
+    margin-top: 2rem;
+}
+.main .content .btn{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    color: #fff;
+    background: #9742e7;
+    border-radius: .1rem;
+    cursor: pointer;
+    padding: .5rem 2rem;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+}
+.main .content a{
+    text-decoration: none;
+}
+
+.submain{
+    margin-top: 3rem;
+}
+.submain .container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 98vw;
+    height: auto;
+    padding-left: 0rem;
+}
+.submain .container .box{
+    width: 18rem;
+    height: 20rem;
+    text-align: center;
+    background-color: #06010f;
+    margin: 5px;
+    border: 2px solid wheat;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.submain .container .box i{
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+}
+.submain .container .box h1{
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+.submain .container .box p{
+    font-size: .9rem;
+    font-family: sans-serif;
+    margin-bottom: 2.5rem;
+    color: #555358;
+}
+.submain .container .box a{
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-decoration: none;
+    background-color: #9742e7;
+    font-family: sans-serif;
+    padding: .5rem 2rem;
+}

